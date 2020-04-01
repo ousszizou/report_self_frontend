@@ -73,7 +73,7 @@
                   :showNoResults="true"
                   :multiple="false"
                   :preselect-first="false"
-                  placeholder="Select your city"
+                  placeholder="Choisissez votre région"
                   :close-on-select="false"
                   :clear-on-select="false"
                   :preserve-search="true"
@@ -142,13 +142,7 @@ query {
         records {
           city
           lat
-          lng
-          country
-          iso2
-          admin
-          capital
-          population
-          population_proper
+          long
         }
       }
     }
