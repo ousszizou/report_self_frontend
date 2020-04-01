@@ -26,6 +26,15 @@ export default function (Vue, { router, head, isClient }) {
     Vue.component("l-geo-json", () => import('vue2-leaflet').then(m => m.LGeoJson));
   }
 
+  head.link.push({
+    rel: 'stylesheet',
+    href: 'https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css'
+  })
+
+  head.script.push({
+    src: 'https://unpkg.com/vue-multiselect@2.1.0'
+  })
+
   router.beforeEach((to, _from, next) => {
     head.meta.push({
       key: 'og:url',
