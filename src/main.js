@@ -30,9 +30,25 @@ export default function (Vue, { router, head, isClient }) {
     rel: 'stylesheet',
     href: 'https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css'
   })
-
+  head.link.push({
+    rel: 'stylesheet',
+    href: 'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css'
+  })
+  head.link.push({
+    rel: 'stylesheet',
+    href: '//unpkg.com/leaflet/dist/leaflet.css'
+  })
+  head.script.push({
+    src: 'https://cdn.jsdelivr.net/npm/flatpickr'
+  })
   head.script.push({
     src: 'https://unpkg.com/vue-multiselect@2.1.0'
+  })
+  head.script.push({
+    src: '//unpkg.com/leaflet/dist/leaflet.js'
+  })
+  head.script.push({
+    src: '//unpkg.com/vue2-leaflet'
   })
 
   router.beforeEach((to, _from, next) => {
