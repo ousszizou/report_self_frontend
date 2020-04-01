@@ -5,6 +5,8 @@ import DefaultLayout from '~/layouts/Default.vue'
 // leaflet.js styling
 import "leaflet/dist/leaflet.css"
 
+import "vue-multiselect/dist/vue-multiselect.min.css";
+
 // import flatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
 import "flatpickr/dist/themes/confetti.css";
