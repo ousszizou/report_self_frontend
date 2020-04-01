@@ -73,9 +73,6 @@
 <script>
 
 import { AlertCircleIcon } from "vue-feather-icons";
-import flatPickr from "vue-flatpickr-component";
-import "flatpickr/dist/flatpickr.css";
-import "flatpickr/dist/themes/confetti.css";
 // import L from "leaflet";
 // import {
 //   LMap,

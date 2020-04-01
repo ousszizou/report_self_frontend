@@ -4,13 +4,18 @@ import DefaultLayout from '~/layouts/Default.vue'
 
 // leaflet.js styling
 import "leaflet/dist/leaflet.css"
-// import L from "leaflet";
+
+// import flatPickr from "vue-flatpickr-component";
+import "flatpickr/dist/flatpickr.css";
+import "flatpickr/dist/themes/confetti.css";
 
 export default function (Vue, { router, head, isClient }) {
   // Set default layout as a global component
   Vue.component('Layout', DefaultLayout)
 
   if (isClient) {
+    window.flatPickr = () => import('vue-flatpickr-component');
+    Vue.component("flat-pickr", () => import('vue-flatpickr-component'));
     window.L = () => import('leaflet');
     Vue.component("l-map", () => import('vue2-leaflet').then(m => m.LMap));
     Vue.component("l-tile-layer", () => import('vue2-leaflet').then(m => m.LTileLayer));
