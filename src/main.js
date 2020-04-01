@@ -14,7 +14,6 @@ export default function (Vue, { router, head, isClient }) {
   Vue.component('Layout', DefaultLayout)
 
   if (isClient) {
-    window.flatPickr = () => import('vue-flatpickr-component');
     Vue.component("flat-pickr", () => import('vue-flatpickr-component'));
     window.L = () => import('leaflet');
     Vue.component("l-map", () => import('vue2-leaflet').then(m => m.LMap));

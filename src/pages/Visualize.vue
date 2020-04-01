@@ -88,7 +88,6 @@ import moment from "moment";
 export default {
   components: {
     AlertCircleIcon,
-    flatPickr,
     // LMap,
     // LTileLayer,
     // LMarker,
