@@ -192,16 +192,14 @@ export default {
   async mounted() {
     window.L = require('leaflet')
     const { data } = await axios.get(
-      // "http://localhost:5000/api/v1/reports"
-      `http://localhost:5000/api/v1/reports?date=${this.date}`
+      `http://ec2-35-180-218-202.eu-west-3.compute.amazonaws.com:5000/api/v1/reports?date=${this.date}`
     );
     this.reports = data;
   },
   watch: {
     date: async function(val) {
       const { data } = await axios.get(
-      // "http://localhost:5000/api/v1/reports"
-      `http://localhost:5000/api/v1/reports?date=${val}`
+      `http://ec2-35-180-218-202.eu-west-3.compute.amazonaws.com:5000/api/v1/reports?date=${val}`
       );
       this.reports = data;
     }

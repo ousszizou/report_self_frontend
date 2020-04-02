@@ -243,7 +243,7 @@ export default {
         diagnose: this.report.diagnose
       }
       try {
-        await axios.post('http://localhost:5000/api/v1/reports', data)
+        await axios.post('http://ec2-35-180-218-202.eu-west-3.compute.amazonaws.com:5000/api/v1/reports', data)
         this.clearInputs()
       } catch (error) {
         console.log(error)
