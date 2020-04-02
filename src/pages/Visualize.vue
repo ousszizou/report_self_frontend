@@ -99,7 +99,7 @@ export default {
     return {
       date: moment().format("YYYY-MM-DD"),
       config: {
-        minDate: "2020-03-29",
+        minDate: "2020-04-02",
         maxDate: "today"
       },
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
