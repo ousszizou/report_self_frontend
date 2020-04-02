@@ -38,7 +38,7 @@
               <l-circle
                 v-for="report in reports"
                 :key="report.city"
-                :lat-lng="getGeo(report.latitude,report.longitude)"
+                :lat-lng="getGeo(report.lat,report.long)"
                 :radius="circle.radius"
                 :stroke="false"
                 :opacity="0.5"
@@ -206,7 +206,7 @@ export default {
   },
   methods: {
     getGeo(lat, lng) {
-      return L.latLng(lat, lng);
+      return L.latLng(lat, long);
     },
     zoomUpdated(zoom) {
       this.zoom = zoom;
