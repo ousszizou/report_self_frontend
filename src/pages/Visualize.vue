@@ -205,7 +205,7 @@ export default {
     }
   },
   methods: {
-    getGeo(lat, lng) {
+    getGeo(lat, long) {
       return L.latLng(lat, long);
     },
     zoomUpdated(zoom) {
