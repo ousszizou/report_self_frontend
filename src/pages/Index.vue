@@ -81,7 +81,7 @@
                   label="city"
                   class="shadow-xs focus:outline-none"
                 />
-                <button class="mt-6 flex items-center text-sm sm:text-base px-4 sm:px-6 py-3 sm:py-4 font-bold leading-none text-white border rounded-full shadow-lg text-ui-primary border-ui-primary transition-all duration-200 ease-out transform uppercase hover:shadow-xl hover:-translate-y-1 focus:outline-none" @click="sendResport">
+                <button class="mt-6 flex items-center text-sm sm:text-base px-4 sm:px-6 py-3 sm:py-4 font-bold leading-none text-white border rounded-full shadow-lg text-ui-primary border-ui-primary transition-all duration-200 ease-out transform uppercase hover:shadow-xl hover:-translate-y-1 focus:outline-none" @click="sendReport">
                   <SendIcon class="mr-4" size="1x" />
                   Envoyer
                 </button>
@@ -237,7 +237,7 @@ export default {
       this.ouiAnswer = true
       this.report.diagnose.infection = "oui"
     },
-    async sendResport() {
+    async sendReport() {
       const data = {
         reportInformations: this.report.selectedCity,
         diagnose: this.report.diagnose
