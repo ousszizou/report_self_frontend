@@ -1,7 +1,6 @@
 <template>
-  <div class="font-sans antialiased text-ui-typo bg-ui-background">
+  <div class="font-sans antialiased text-ui-typo bg-ui-background" dir="rtl">
     <div class="flex flex-col justify-start min-h-screen">
-
       <header
         ref="header"
         class="sticky top-0 z-10 w-full border-b bg-ui-background border-ui-border"
@@ -15,9 +14,20 @@
         </div>
       </main>
     </div>
-    <footer class="flex justify-center text-center">
+    <footer class="flex justify-center text-center mt-8">
       <p class="text-xs sm:text-base">
-        Made with Love <HeartIcon size="1x" class="inline text-ui-primary" /> © 2020 <span class="font-bold text-ui-primary">Om_A</span> & <span class="font-bold text-ui-primary">Ou_D</span>. All Rights Reserved. 
+        صنع بالحب
+        <HeartIcon size="1x" class="inline text-ui-primary" /> من طرف
+        <a
+          href="https://www.linkedin.com/in/omarabdelmalek/"
+          target="_blank"
+          class="font-bold text-ui-primary"
+        >Om_A</a> و
+        <a
+          href="https://www.linkedin.com/in/oussama-djaidri-ab2143149/"
+          target="_blank"
+          class="font-bold text-ui-primary"
+        >Ou_D </a>جميع الحقوق محفوظة © 2020
       </p>
     </footer>
   </div>
@@ -33,68 +43,55 @@ query {
 
 <script>
 import LayoutHeader from "@/components/LayoutHeader";
-import { HeartIcon } from 'vue-feather-icons';
+import { HeartIcon } from "vue-feather-icons";
 
 export default {
   components: {
     LayoutHeader,
     HeartIcon
   },
-  computed: {
-    sidebarStyle() {
-      return {
-        top: this.headerHeight + 'px',
-        height: `calc(100vh - ${this.headerHeight}px)`
-      }
-    },
-    hasSidebar() {
-      return this.$page && this.headerHeight > 0;
-    }
-  },
   metaInfo() {
     return {
       meta: [
         {
-          key: 'og:type',
-          name: 'og:type',
-          content: 'website',
+          key: "og:type",
+          name: "og:type",
+          content: "website"
         },
         {
-          key: 'twitter:card',
-          name: 'twitter:card',
-          content: 'summary_large_image',
+          key: "twitter:card",
+          name: "twitter:card",
+          content: "summary_large_image"
         },
         {
-          key: 'og:image',
-          name: 'og:image',
-          content: process.env.SITE_URL + '/logo.jpg',
+          key: "og:image",
+          name: "og:image",
+          content: process.env.SITE_URL + "/logo.jpg"
         },
         {
-          key: 'twitter:image',
-          name: 'twitter:image',
-          content: process.env.SITE_URL + '/logo.jpg',
-        },
+          key: "twitter:image",
+          name: "twitter:image",
+          content: process.env.SITE_URL + "/logo.jpg"
+        }
       ]
-    }
+    };
   }
 };
 </script>
 
 <style lang="scss">
 :root {
-  --color-ui-background: theme('colors.white');
-  --color-ui-typo: theme('colors.gray.700');
-  --color-ui-sidebar: theme('colors.gray.200');
-  --color-ui-border: theme('colors.gray.300');
-  --color-ui-primary: theme('colors.blue.500');
+  --color-ui-background: theme("colors.white");
+  --color-ui-typo: theme("colors.gray.700");
+  --color-ui-border: theme("colors.gray.300");
+  --color-ui-primary: #4caf50;
 }
 
 html[lights-out] {
-  --color-ui-background: theme('colors.gray.900');
-  --color-ui-typo: theme('colors.gray.100');
-  --color-ui-sidebar: theme('colors.gray.800');
-  --color-ui-border: theme('colors.gray.800');
-  --color-ui-primary: theme('colors.blue.400');
+  --color-ui-background: theme("colors.gray.900");
+  --color-ui-typo: theme("colors.gray.100");
+  --color-ui-border: theme("colors.gray.800");
+  --color-ui-primary: #4caf50;
 
   pre[class*="language-"],
   code[class*="language-"] {
@@ -108,17 +105,29 @@ html:not(.multiselect) {
   transition-timing-function: ease-in-out;
 }
 
+/* multiselect */
 .multiselect * {
   color: #35495e;
 }
 
 /* Vue2-map-leaflet */
 .vue2leaflet-map * {
-  color: #4a5568
+  color: var(--color-ui-typo);
 }
 
-a:not(.active):not(.text-ui-primary):not(.text-white) {
-  color: #4a5568 !important
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background:var(--color-ui-background) !important;
+}
+
+.leaflet-bar a,
+.leaflet-control-layers-toggle {
+  background: var(--color-ui-background) !important;
+}
+
+.active:not(.titleLogo) {
+  color: var(--color-ui-primary);
+  border-bottom: 2px solid;
+  font-weight: 700;
 }
 
 h1,
@@ -159,7 +168,9 @@ h4 {
   @apply text-lg;
 }
 
-a:not(.active):not(.text-ui-primary):not(.text-white) { @apply text-ui-typo }
+a:not(.active):not(.text-ui-primary):not(.text-white) {
+  @apply text-ui-typo;
+}
 
 p,
 ol,
@@ -175,10 +186,15 @@ blockquote {
     @apply text-ui-primary underline;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply -mt-12 pt-20;
   }
-    
+
   h2 + h3,
   h2 + h2,
   h3 + h3 {
@@ -229,7 +245,7 @@ blockquote {
 }
 
 code {
-  @apply px-1 py-1 text-ui-typo bg-ui-sidebar font-mono border-b border-r border-ui-border text-sm rounded;
+  @apply px-1 py-1 text-ui-typo bg-ui-primary font-mono border-b border-r border-ui-border text-sm rounded;
 }
 
 pre[class*="language-"] {
@@ -252,7 +268,8 @@ header {
 table {
   @apply text-left mb-6;
 
-  td, th {
+  td,
+  th {
     @apply py-3 px-4;
     &:first-child {
       @apply pl-0;
@@ -269,5 +286,4 @@ table {
     }
   }
 }
-
 </style>

@@ -3,36 +3,45 @@
     <div class="pt-8 md:pt-24 px-6 lg:px-16">
       <div class="flex px-6 md:px-4">
         <div class="w-full lg:w-1/2">
-          <p class="text-left font-light text-base leading-relaxed tracking-wide">
-          Aidez-nous à combattre le nouveau Coronavirus en Suisse en nous communiquant votre état de santé.<br><br>
-          Nous souhaitons fournir une visualisation de la progression du Covid-19 dans notre pays. Comment pouvons-nous 'applanir la courbe' sans avoir une représentation statistique de la situation actuelle? Aidez-nous en publiant votre état de santé
+          <p class="text-right font-light text-base leading-relaxed tracking-wide">
+            ساعدونا في مكافحة فيروس كورونا الجديد في الجزائر بإخبارنا عن حالتك.
+            <br />
+            <br />نريد أن نقدم تصورًا لتقدم Covid-19 في بلدنا. كيف يمكننا "تسوية المنحنى" بدون تمثيل إحصائي للوضع الحالي؟ ساعدنا بنشر حالتك الصحية
           </p>
-          <h2 class="text-3xl mt-6 text-ui-primary">Comment allez-vous?</h2>
+          <h2 class="text-3xl mt-6 text-ui-primary">كيف حالك؟</h2>
           <div class="flex mt-8">
-            <button class="flex items-center text-sm sm:text-base px-4 sm:px-6 py-3 sm:py-4 font-bold leading-none text-white border rounded-full shadow-lg bg-ui-primary border-ui-primary transition-all duration-200 ease-out transform uppercase hover:shadow-xl hover:-translate-y-1 focus:outline-none" @click="startGoodReport">
-              <HeartIcon class="mr-4" size="1x" />
-              je vais bien
+            <button
+              class="flex items-center text-sm sm:text-base px-4 sm:px-6 py-3 sm:py-4 font-bold leading-none text-white border rounded-full shadow-lg bg-ui-primary border-ui-primary transition-all duration-200 ease-out transform uppercase hover:shadow-xl hover:-translate-y-1 focus:outline-none"
+              @click="startGoodReport"
+            >
+              أنا بخير
+              <HeartIcon class="mr-2" size="1x" />
             </button>
-            <button class="flex items-center ml-4 text-sm sm:text-base px-4 sm:px-4 sm:px-6 py-3 sm:py-4 font-bold leading-none text-white border rounded-full shadow-lg bg-ui-primary border-ui-primary transition-all duration-200 ease-out transform uppercase hover:shadow-xl hover:-translate-y-1 focus:outline-none" @click="startBadReport">
-              <FrownIcon class="mr-4" size="1x" />
-              je suis malade
+            <button
+              class="flex items-center mr-4 text-sm sm:text-base px-4 sm:px-4 sm:px-6 py-3 sm:py-4 font-bold leading-none text-white rounded-full shadow-lg transition-all duration-200 ease-out transform uppercase hover:shadow-xl hover:-translate-y-1 focus:outline-none"
+              @click="startBadReport"
+              style="background-color: #ff5722"
+            >
+              أنا مريض
+              <FrownIcon class="mr-2" size="1x" />
             </button>
           </div>
-          <div class="flex flex-col mt-6" v-if="GoodReportOpen || BadReportOpen">
+          <div
+            class="flex flex-col mt-6"
+            v-if="GoodReportOpen || BadReportOpen"
+          >
             <div>
-              <h3  v-if="GoodReportOpen">
-                Avez-vous été infecté par le Covid-19 puis guéri?
+              <h3 v-if="GoodReportOpen">
+                هل أصبت بـ Covid-19 ثم شفيت؟
               </h3>
-              <h3 v-if="BadReportOpen">
-                Quels sont vos symptômes?
-              </h3>
+              <h3 v-if="BadReportOpen">ما هي أعراضك ؟</h3>
               <multiselect
                 v-if="BadReportOpen"
-                v-model="report.diagnose.symptoms" 
+                v-model="report.diagnose.symptoms"
                 :options="symptomsList"
                 :multiple="true"
                 :preselect-first="false"
-                placeholder="Select you symptoms"
+                placeholder="إختر الأعراض الظاهرة عليك"
                 :close-on-select="false"
                 :clear-on-select="false"
                 :preserve-search="true"
@@ -40,88 +49,155 @@
                 label="name"
                 :showNoResults="true"
                 :limit="3"
-                :limitText="count => `and ${count} more`"
+                :limitText="count => `و ${count} آخرين`"
                 class="shadow-xs focus:outline-none"
               />
-              <h3 class="mt-6" v-if="BadReportOpen">Quel est votre diagnostic?</h3>
+              <h3 class="mt-6" v-if="BadReportOpen">
+                ما هو تشخيصك؟
+              </h3>
               <p v-if="BadReportOpen">
-                Au vu de vos contacts sociaux récents, pensez-vous avoir contracté le Covid-19 ?
+                في ضوء اتصالاتك الاجتماعية الأخيرة ، هل تعتقد أنك أصبت بـ Covid-19؟
               </p>
               <div>
-                <button class="font-bold text-base mx-2 px-3 py-1 uppercase border rounded-sm shadow-lg focus:bg-ui-primary border-ui-primary transition-all duration-200 ease-out transform uppercase hover:shadow-xl hover:-translate-y-1 focus:outline-none focus:text-white" @click="nonAnswerHandler">non</button>
-                <button class="font-bold text-base mx-2 px-3 py-1 uppercase  rounded-sm shadow-lg focus:bg-btn-green border  border-ui-primary focus:outline-none focus:border-btn-green transition-all duration-200 ease-out transform uppercase hover:shadow-xl hover:-translate-y-1 focus:text-white" @click="probAnswerHandler">probablement</button>
-                <button class="font-bold text-base mx-2 px-3 py-1 uppercase border rounded-sm shadow-lg focus:bg-ui-primary border-ui-primary transition-all duration-200 ease-out transform uppercase hover:shadow-xl hover:-translate-y-1 focus:outline-none focus:bg-btn-red focus:border-btn-red focus:text-white" @click="ouiAnswerHandler">c'est officiel</button>
+                <button
+                  class="font-bold text-base mx-2 px-3 py-1 uppercase border rounded-sm shadow-lg focus:bg-btn-blue focus:border-btn-blue border-ui-primary transition-all duration-200 ease-out transform uppercase hover:shadow-xl hover:-translate-y-1 focus:outline-none focus:text-white"
+                  @click="nonAnswerHandler"
+                >
+                  لا
+                </button>
+                <button
+                  class="font-bold text-base mx-2 px-3 py-1 uppercase rounded-sm shadow-lg focus:bg-btn-green border border-ui-primary focus:outline-none focus:border-btn-green transition-all duration-200 ease-out transform uppercase hover:shadow-xl hover:-translate-y-1 focus:text-white"
+                  @click="probAnswerHandler"
+                >
+                  لا أدري
+                </button>
+                <button
+                  class="font-bold text-base mx-2 px-3 py-1 my-3 uppercase border rounded-sm shadow-lg focus:bg-ui-primary border-ui-primary transition-all duration-200 ease-out transform uppercase hover:shadow-xl hover:-translate-y-1 focus:outline-none focus:bg-btn-red focus:border-btn-red focus:text-white"
+                  @click="ouiAnswerHandler"
+                >
+                  نعم
+                </button>
               </div>
               <div class="mt-6 text-xs" v-if="nonAnswer && GoodReportOpen">
                 <p>
-                  Super! Restez à la maison même si vous n'êtes pas malade pour éviter la propagation du virus.
+                  عظيم! إبق في المنزل حتى لو لم تكن مريضا لتجنب إنتشار الفيروس.
                 </p>
               </div>
-              <div class="mt-6 text-xs" v-if="probAnswer && GoodReportOpen"></div>
-              <div class="mt-6 text-xs" v-if="ouiAnswer && GoodReportOpen">
-                <p>
-                  oui
-                </p>
-              </div>
+              <div
+                class="mt-6 text-xs"
+                v-if="probAnswer && GoodReportOpen"
+              ></div>
               <div class="mt-6">
-                <h3>
-                  Où vivez-vous ?
-                </h3>
-                <multiselect 
-                  v-model="report.selectedCity" 
-                  :options="cities"
+                <h3>أين تعيش الآن؟</h3>
+                <multiselect
+                  v-model="report.selectedCity.wilaya"
+                  :options="wilayas"
                   :showNoResults="true"
                   :multiple="false"
                   :preselect-first="false"
-                  placeholder="Choisissez votre région"
-                  :close-on-select="false"
+                  placeholder="إخـــتر الولاية"
+                  :close-on-select="true"
                   :clear-on-select="false"
                   :preserve-search="true"
-                  track-by="city"
-                  label="city"
+                  track-by="nom"
+                  label="nom"
+                  class="shadow-xs focus:outline-none mb-3"
+                />
+                <multiselect
+                  v-model="report.selectedCity.city"
+                  :options="citiesOfwilaya"
+                  :showNoResults="true"
+                  :multiple="false"
+                  :preselect-first="false"
+                  placeholder="إختر المنطقة التي تقطن فيها"
+                  :close-on-select="true"
+                  :clear-on-select="false"
+                  :preserve-search="true"
+                  track-by="nom"
+                  label="nom"
                   class="shadow-xs focus:outline-none"
                 />
-                <button class="mt-6 flex items-center text-sm sm:text-base px-4 sm:px-6 py-3 sm:py-4 font-bold leading-none text-white border rounded-full shadow-lg text-ui-primary border-ui-primary transition-all duration-200 ease-out transform uppercase hover:shadow-xl hover:-translate-y-1 focus:outline-none" @click="sendReport">
-                  <SendIcon class="mr-4" size="1x" />
-                  Envoyer
+                <button
+                  class="mt-6 flex items-center text-sm sm:text-base px-4 sm:px-6 py-3 sm:py-4 font-bold leading-none text-white border rounded-full shadow-lg text-ui-primary border-ui-primary transition-all duration-200 ease-out transform uppercase hover:shadow-xl hover:-translate-y-1 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                  @click="sendReport"
+                  :disabled="true ? !fieldsNotEmpty : false"
+                >
+                  <pulse-loader
+                    :loading="loading"
+                    :color="spinnerColor"
+                    size="10px"
+                    class="px-6"
+                  ></pulse-loader>
+                  <span v-if="!loading">
+                    أرسل
+                    <SendIcon class="mr-2 inline" size="1x" /></span
+                  >
                 </button>
               </div>
             </div>
           </div>
-          <div class="mt-4 p-2 bg-alert-lighter items-center text-white leading-none rounded-full flex lg:inline-flex" role="alert">
+          <div
+            class="mt-4 p-2 bg-alert-lighter items-center text-white leading-none rounded-full flex lg:inline-flex sm:w-4/5 md:w-3/4 lg:w-full xl:w-3/4"
+            role="alert"
+          >
             <AlertCircleIcon size="2x" class="text-white mr-2" />
-            <span class="text-xs sm:text-sm font-semibold mr-2 text-left flex-auto">Nous n'enregistrons aucune information personnelle sur nos serveurs !</span>
+            <span
+              class="text-xs sm:text-sm font-semibold mr-2 text-right flex-auto px-2"
+              >نحن لا نحتفظ بأي معلومات شخصية على خوادمنا!</span
+            >
           </div>
         </div>
         <div class="hidden lg:block md:w-1/2">
-          <img src="../assets/corona-1.svg" alt="covid19-wallpaper" class="w-4/5 my-0 ml-auto mr-0">
+          <img
+            src="../assets/corona-1.svg"
+            alt="covid19-wallpaper"
+            class="w-4/5 my-0 mr-auto ml-0"
+          />
         </div>
       </div>
 
-      <div class="pt-8 mx-auto mt-8 border-t md:mt-16 md:pt-16 border-top border-ui-border max-w-screen-sm"></div>
+      <div
+        class="pt-8 mx-auto mt-8 border-t md:mt-16 md:pt-16 border-top border-ui-border max-w-screen-sm"
+      ></div>
       <div class="flex flex-wrap justify-center -mx-4">
-        <div class="flex flex-col items-center w-full px-4 mb-8 text-center w-full">
+        <div
+          class="flex flex-col items-center w-full px-4 mb-8 text-center w-full"
+        >
           <SmileIcon size="5x" class="text-ui-primary" />
-          <h1 class="text-4xl text-center lg:text-5xl text-ui-primary tracking-wide">
-            Merci pour votre soutien!
+          <h1
+            class="text-4xl text-center lg:text-5xl text-ui-primary tracking-wide"
+          >
+            شكرا لدعمكم!
           </h1>
           <p class="text-base sm:text-lg text-center font-semibold">
-            Contactez-nous sur l'une de ces plateformes.
+            اتصل بنا على إحدى هذه المنصات.
           </p>
           <div class="flex">
-            <a v-if="settings.twitter" :href="settings.twitter" class="ml-3 sm:block" target="_blank" rel="noopener noreferrer" title="Twitter" name="Twitter">
+            <a
+              v-if="settings.twitter"
+              :href="settings.twitter"
+              class="ml-3 sm:block"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="تويتر"
+              name="Twitter"
+            >
               <TwitterIcon size="1.5x" />
             </a>
-            <a v-if="settings.github" :href="settings.github" class="ml-3 sm:block" target="_blank" rel="noopener noreferrer" title="Github" name="Github">
-              <GithubIcon size="1.5x" />
-            </a>
-            <a v-if="settings.linkedin" :href="settings.linkedin" class="ml-3 sm:block" target="_blank" rel="noopener noreferrer" title="linkedin" name="linkedin">
+            <a
+              v-if="settings.linkedin"
+              :href="settings.linkedin"
+              class="ml-3 sm:block"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="لينكد إن"
+              name="linkedin"
+            >
               <LinkedinIcon size="1.5x" />
             </a>
           </div>
-        </div>      
+        </div>
       </div>
-
     </div>
   </Layout>
 </template>
@@ -132,33 +208,48 @@ query {
     siteName
     settings {
       linkedin
-      github
       twitter
     }
   }
+  wilayas: allWilayas {
+    edges{
+      node{
+        data{code nom}
+      }
+    }
+  }
   cities: allCities {
-    edges {
-      node {
-        records {
-          city
-          lat
-          long
-        }
+    edges{
+      node{
+        data{id wilaya_id nom longitude latitude code_postal}
       }
     }
   }
 }
 </static-query>
 
-
 <script>
-import axios from 'axios'
-import Multiselect from 'vue-multiselect'
-import Logo from '@/components/Logo';
-import { HeartIcon, CodeIcon, MoonIcon, SearchIcon, FrownIcon, AlertCircleIcon, SmileIcon, TwitterIcon, GithubIcon, LinkedinIcon, SendIcon } from 'vue-feather-icons';
+import axios from "axios"
+import Multiselect from "vue-multiselect"
+import Logo from "@/components/Logo"
+import {
+  HeartIcon,
+  CodeIcon,
+  MoonIcon,
+  SearchIcon,
+  FrownIcon,
+  AlertCircleIcon,
+  SmileIcon,
+  TwitterIcon,
+  LinkedinIcon,
+  SendIcon
+} from "vue-feather-icons"
+
+import PulseLoader from "vue-spinner/src/PulseLoader.vue"
 
 export default {
   components: {
+    PulseLoader,
     Multiselect,
     SendIcon,
     Logo,
@@ -170,36 +261,41 @@ export default {
     AlertCircleIcon,
     SmileIcon,
     TwitterIcon,
-    GithubIcon,
     LinkedinIcon
   },
 
   data() {
     return {
+      loading: false,
+      disable: true,
+      spinnerColor: "var(--color-ui-primary)",
       GoodReportOpen: false,
       BadReportOpen: false,
       nonAnswer: false,
       probAnswer: false,
       ouiAnswer: false,
       report: {
-        selectedCity: null,
+        selectedCity: {
+          wilaya: null,
+          city: null
+        },
         diagnose: {
           sick: null,
           infection: null,
           symptoms: null
-        },
+        }
       },
       symptomsList: [
-        { name: "Fièvre (plus de 38°C)" },
-        { name: "Toux (sèche)" },
-        { name: "Vomissements" },
-        { name: "Détresse respiratoire" },
-        { name: "Fatigue" },
-        { name: "Maux de tête" },
-        { name: "Rhume" },
-        { name: "Diarrhée" },
-        { name: "Troubles du goût ou de l'odorat" },
-        { name: "Autres" },
+        { name: "حمى (درجة حرارة أكبر من 38)" },
+        { name: "سُعال" },
+        { name: "التقيؤ" },
+        { name: "ضيق في التنفس" },
+        { name: "الإرهاق و التعب" },
+        { name: "صداع" },
+        { name: "زكام" },
+        { name: "الإسهال" },
+        { name: "اضطرابات في التذوق أو الشم" },
+        { name: "أعراض أخرى" }
       ]
     }
   },
@@ -238,66 +334,107 @@ export default {
       this.report.diagnose.infection = "oui"
     },
     async sendReport() {
+      this.loading = true
       const data = {
         reportInformations: this.report.selectedCity,
         diagnose: this.report.diagnose
       }
       try {
-        await axios.post('http://ec2-35-180-218-202.eu-west-3.compute.amazonaws.com:5000/api/v1/reports', data)
+        await axios.post(
+          "http://localhost:5000/api/v1/reports/dz",
+          data
+        )
         this.clearInputs()
+        this.$swal(
+          "!شكرا لتفهمكم",
+          "!كن متفائلاً وكل شيء سيكون على ما يرام",
+          "success",
+          {
+            button: "حسـنا"
+          }
+        )
+        this.loading = false
       } catch (error) {
-        console.log(error)
+        this.loading = false
+        this.$swal(
+          "!أووه",
+          "حدثت مشكلة غير متوقعة. حاول مرة أخرى",
+          "error",
+          {
+            button: "حسـنا"
+          }
+        )
         this.clearInputs()
       }
     }
   },
   computed: {
     meta() {
-      return this.$static.metadata;
+      return this.$static.metadata
     },
     settings() {
-      return this.meta.settings;
+      return this.meta.settings
     },
     cities() {
-      return this.$static.cities.edges[0].node.records
+      return this.$static.cities.edges[0].node.data
+    },
+    wilayas() {
+      return this.$static.wilayas.edges[0].node.data
+    },
+    citiesOfwilaya() {
+      const wilaya_code = this.report.selectedCity.wilaya != null ? this.report.selectedCity.wilaya.code : null
+      if (wilaya_code == null) {
+        return this.cities
+      } else {
+        return this.cities.filter(city => city.wilaya_id === wilaya_code)
+      }
+    },
+    fieldsNotEmpty() {
+      const size =
+        this.report.selectedCity != null
+          ? Object.getOwnPropertyNames(this.report.selectedCity).length
+          : false
+      return size > 1 && this.report.diagnose.infection != null
     }
   },
   metaInfo() {
-    const title = 'France Covid-19';
-    const description = 'Self health reporting tool for the Covid-19 pandemic in France';
-
+    const title = "الجزائـر"
+    const description =
+      "أداة الإبلاغ الذاتي عن جائحة Covid-19 في الجزائر"
     return {
       title: title,
       meta: [
         {
-          name: 'description',
+          name: "description",
           content: description
         },
         {
-          key: 'og:title',
-          name: 'og:title',
-          content: title,
+          key: "og:title",
+          name: "og:title",
+          content: title
         },
         {
-          key: 'twitter:title',
-          name: 'twitter:title',
-          content: title,
+          key: "twitter:title",
+          name: "twitter:title",
+          content: title
         },
         {
-          key: 'og:description',
-          name: 'og:description',
-          content: description,
+          key: "og:description",
+          name: "og:description",
+          content: description
         },
         {
-          key: 'twitter:description',
-          name: 'twitter:description',
-          content: description,
-        },
+          key: "twitter:description",
+          name: "twitter:description",
+          content: description
+        }
       ]
     }
   }
 }
 </script>
+
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
 <style>
 .home-links a {
